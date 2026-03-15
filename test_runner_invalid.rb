@@ -1,5 +1,3 @@
-require "set"
-require "stringio"
 require "roman-numerals"
 
 require_relative "roman_numerals_transducer.rb"
@@ -18,21 +16,13 @@ invalid_accepted = []
     next if valid_romans.include?(word)
     
     transducer.set_word(word)
-    
-    original_stdout = $stdout
-    $stdout = StringIO.new
-    
-    begin
-      transducer.start()
-      output = $stdout.string
-      if output.include?("Aceito")
-        invalid_accepted << word
-      end
-    ensure
-      $stdout = original_stdout
+    result = transducer.start()
+
+    if result != nil
+      invalid_accepted.push(word)
     end
   end
 end
 
-puts("Fuzzing complete. Found #{invalid_accepted.size} invalid words accepted:")
+puts("Found #{invalid_accepted.size()} invalid words accepted#{":" if invalid_accepted.size > 0}")
 puts(invalid_accepted.join(", "))

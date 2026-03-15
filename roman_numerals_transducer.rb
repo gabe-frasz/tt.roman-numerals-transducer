@@ -5,7 +5,7 @@ class RomanNumeralTransducer
     @output_tape = []
   end
 
-  def next_symbol
+  def next_symbol()
     if @idx == @word.size()
       return ""
     else
@@ -19,7 +19,7 @@ class RomanNumeralTransducer
     @output_tape = []
   end
   
-  def start
+  def start()
     curr_state = "q0"
   
     loop do
@@ -134,16 +134,16 @@ if __FILE__ == $0
   transducer = RomanNumeralTransducer.new("")
   
   loop do
-    puts("Enter a Roman numeral:")
+    puts("Enter a roman numeral:")
     word = gets.chomp()
     
     transducer.set_word(word)
     result = transducer.start()
 
     if result != nil
-      puts("Result: " + result.sum().to_s)
+      puts("Result: " + result.sum().to_s())
     else
-      puts("Invalid input")
+      puts("Error: invalid numeral")
     end
   end
 end
